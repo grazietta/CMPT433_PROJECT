@@ -1,0 +1,107 @@
+<html>
+
+<head>
+  <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+  <script src=" http://www.google.com/uds/modules/gviz/gviz-api.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="https://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+    var config = require('config.js')
+
+    //https://stackoverflow.com/questions/8175093/simple-function-to-sort-an-array-of-objects
+    function sortByKey(array, key) {
+      return array.sort(function (a, b) {
+        var x = a[key];
+        var y = b[key];
+        return ((x > y) ? -1 : ((x < y) ? 1 : 0));
+      });
+    }
+
+    firebase.initializeApp(config);
+    var database = firebase.database();
+    var ref = database.ref('voltages').child("data")
+
+    var minTime = 0
+    var maxTime = 0
+
+    ref.on("value", function (snapshot) {
+      temps = snapshot.val();
+
+      minTime = temps[0].time
+      maxTime = minTime
+
+      temps.map((d) => {
+        if (d.time < minTime) minTime = d.time
+        if (d.time > maxTime) maxTime = d.time
+      })
+
+      temps = sortByKey(temps, 'time')
+
+      google.charts.load('current', {
+        'packages': ['corechart']
+      })
+      google.charts.setOnLoadCallback(drawChart(temps));
+    }, function (errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    });
+
+    function drawChart(temps) {
+      var array = $.map(temps, function (value, index) {
+        return [value]
+      })
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'voltage');
+      data.addColumn('number', 'time');
+
+      var tempData = temps
+      var output = [];
+
+      for (var i = 0; i < tempData.length; i++) {
+        var item = tempData[i];
+        output.push([
+          item.time * 250,
+          item.voltage
+        ]);
+      }
+
+      data.addRows(output);
+      var options = {
+        curveType: 'function',
+        series: {
+          0: {
+            lineWidth: 1
+          }
+        },
+        title: 'Raw A2D Input vs Time',
+        hAxis: {
+          title: "Time (ms)",
+          viewWindowMode: 'explicit',
+          viewWindow: {
+            max: maxTime * 250,
+            min: minTime * 250
+          },
+          gridlines: {
+            count: 10,
+          }
+        },
+        vAxis: {
+          title: 'Raw Analogue Input',
+          minValue: 3700,
+          maxValue: 3900
+        },
+        legend: 'none'
+      };
+
+      var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'))
+      chart.draw(data, options);
+    }
+  </script>
+</head>
+
+<body>
+  <div id="chart_div" style="width: 900px; height: 500px;"></div>
+</body>
+
+</html>
