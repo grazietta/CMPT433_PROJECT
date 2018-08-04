@@ -1,3 +1,7 @@
+/*
+NodeJs server that listens to incoming changes from firebase
+*/
+
 const Firebase = require("firebase");
 const express = require("express");
 const admin = require('firebase-admin');
