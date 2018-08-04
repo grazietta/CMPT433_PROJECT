@@ -1,3 +1,7 @@
+/*
+Server that listens to incoming UDP messages and pushes result to firebase
+*/
+
 const admin = require('firebase-admin');
 const {
 	exec
