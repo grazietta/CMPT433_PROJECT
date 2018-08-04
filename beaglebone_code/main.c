@@ -1,3 +1,7 @@
+/*
+main program for code executed on the beaglebone
+*/
+
 #include "joystick.h"
 #include "pot.h"
 #include "clap.h"

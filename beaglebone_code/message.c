@@ -1,3 +1,7 @@
+/*
+sends a string message to a local NodeJs server using UDP
+*/
+
 #include <stdlib.h>
 #include <stdbool.h>
 #include <stdio.h>

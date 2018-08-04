@@ -1,3 +1,7 @@
+/*
+Implements useful linked lists functions to build a queue
+*/
+
 #include <stdio.h>
 #include "list.h"
 #include <string.h>

@@ -1,3 +1,6 @@
+/*
+Header file for the clap module 
+*/
 
 #ifndef _CLAP_H_
 #define _CLAP_H_

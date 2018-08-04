@@ -1,3 +1,6 @@
+/*
+linked lists functions to build a queue
+*/
 #ifndef _LIST_H_
 #define _LIST_H_
 

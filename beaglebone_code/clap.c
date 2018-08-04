@@ -1,6 +1,8 @@
-/* reads analog input voltage 4 on the BeagleBone and detects whether there is a likelihood of a clap occuring
+/* 
+reads analog input voltage 4 on the BeagleBone and detects whether there is a likelihood of a clap occuring
 Assumes ADC cape already loaded:
-root@beaglebone:/#  echo BB_ADC > /sys/devices/platform/bone_capemgr/slots*/
+root@beaglebone:/#  echo BB_ADC > /sys/devices/platform/bone_capemgr/slots
+*/
 
 #include <stdlib.h>
 #include <stdbool.h>

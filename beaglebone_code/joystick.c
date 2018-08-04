@@ -1,6 +1,8 @@
-/*When the joystick is moved up, down, righ left,
+/*
+When the joystick is moved up, down, righ left,
 or pushed down, it selects one of 5 modes which
-represent a different animation on the LEDs*/
+represent a different animation on the LEDs
+*/
 
 #include <stdio.h>
 #include <stdlib.h>

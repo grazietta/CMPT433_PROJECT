@@ -1,4 +1,5 @@
-/* Reads analog input voltage 0 on the BeagleBone
+/* 
+Reads analog input voltage 0 on the BeagleBone
 Converts reading to different brightness levels which
 change the brightness of the LEDs. 
 */
